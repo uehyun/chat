@@ -1,0 +1,11 @@
+ChatProject/bin/
+ChatProject/.settings/.jsdtscope
+ChatProject/.settings/org.eclipse.jdt.core.prefs
+ChatProject/.settings/org.eclipse.wst.common.component
+ChatProject/.settings/org.eclipse.wst.common.project.facet.core.xml
+ChatProject/.settings/org.eclipse.wst.jsdt.ui.superType.container
+ChatProject/.settings/org.eclipse.wst.jsdt.ui.superType.name
+.project
+ChatProject/.classpath
+ChatProject/.project
+ChatProject/.settings/org.eclipse.wst.validation.prefs
