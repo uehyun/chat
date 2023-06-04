@@ -8,7 +8,7 @@ public class MainController {
 	
 	  @RequestMapping(value = "/")
 	  public String goMain() {
-		  return "chat/test";
+		  return "chat/ChatTemplate";
 	  }
 
 }
