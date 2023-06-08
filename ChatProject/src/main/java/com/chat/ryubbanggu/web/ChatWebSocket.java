@@ -4,7 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -23,7 +22,6 @@ import com.chat.ryubbanggu.vo.Chat;
 import com.chat.ryubbanggu.vo.ChatMessage;
 import com.chat.ryubbanggu.vo.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +30,6 @@ public class ChatWebSocket extends TextWebSocketHandler {
 	
     private List<WebSocketSession> users = new LinkedList<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private Gson gson = new Gson();
     @Inject
     private IChatService chatService;
     
@@ -57,7 +54,7 @@ public class ChatWebSocket extends TextWebSocketHandler {
     
     // 채팅내역 파일에 저장
     private void saveFile(String id,String message, String pictureUrl, String chatId) {
-    	String filePath = "C:\\CHAT\\" + chatId + ".txt";
+    	String filePath = "D:\\CHAT\\" + chatId + ".txt";
     	String msg = "<div class='message-bubble' data-userId='"+ id +"'>"
 					+ 	"<div class='message-avatar'>" + "<img src='../resources/upload/"+pictureUrl+ "'/></div>"
 					+ 	"<div class='message-text'><p>" + message + "</p></div>"
@@ -94,7 +91,11 @@ public class ChatWebSocket extends TextWebSocketHandler {
     // 클라이언트와 연결 이후에 실행되는 메서드
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    	log.info("접속자 : " +  session.getAttributes().size() + "명");
     	users.add(session);
+    	for(WebSocketSession member : users) {
+    		member.sendMessage(new TextMessage("접속자 : " +  session.getAttributes().size() + "명"));
+    	}
     }
    
     // 클라이언트가 서버로 메시지를 전송했을 때 실행되는 메서드
@@ -113,7 +114,7 @@ public class ChatWebSocket extends TextWebSocketHandler {
     		chat = chatService.create(chatMessage.getUserId(), chatMessage.getHostId());
     	}
     	
-    	String chatRoom = "C:\\CHAT\\" + chat.getChatId() + ".txt";
+    	String chatRoom = "D:\\CHAT\\" + chat.getChatId() + ".txt";
     	
     	if(chatMessage.getState() == 0) {
     		try {
