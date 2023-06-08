@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.ryubbanggu.mapper.ChatMapper">
+
+	<select id="list" parameterType="String" resultType="chat">
+		select aa.chat_id, aa.user_id user_id, bb.user_id host_id, aa.picture_url user_picture, bb.picture_url host_picture
+		from (
+		        select a.USER_ID , a.host_id,  a.CHAT_ID, b.picture_url 
+		          from chat a 
+		          left join member b
+		            on a.USER_ID = b.USER_ID
+		         where a.user_id = #{userId} or a.host_id = #{userId}
+		           ) aa 
+		left join member bb
+		on aa.host_id = bb.USER_ID
+	</select>
+	
+	<select id="chatRoom" parameterType="String" resultType="chat">
+		select aa.chat_id, aa.user_id user_id, bb.user_id host_id, aa.picture_url user_picture, bb.picture_url host_picture
+		from (
+		        select a.user_id , a.host_id,  a.chat_id, b.picture_url 
+		          from chat a 
+		          left join member b
+		        on a.user_id = b.user_id
+		        where a.chat_id = #{chatId}
+       		 ) aa 
+		left join member bb
+		on aa.host_id = bb.user_id
+	</select>
+	
+	<insert id="create" useGeneratedKeys="true">
+	<selectKey keyProperty="chatId" resultType="Chat" order="BEFORE">
+		select 'chat-'||seq_chat.nextval from dual
+	</selectKey>
+		insert into chat (
+			chat_id, user_id, host_id
+		) values (
+			#{chatId}, #{userId}, #{hostId}
+		)
+	</insert>
+
+</mapper>

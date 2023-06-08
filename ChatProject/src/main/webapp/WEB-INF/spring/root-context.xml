@@ -7,7 +7,7 @@
 	 <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-	 	<property name="username" value="test"/>
+	 	<property name="username" value="chat"/>
 	 	<property name="password" value="java"/>
 	 </bean>
 	 
@@ -20,5 +20,18 @@
 	 <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 	 	<constructor-arg index="0" ref="sqlSessionFactory"/>
 	 </bean>
+	 
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="com.chat.ryubbanggu.mapper"/>
+    </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+       <property name="maxUploadSize" value="10485760"/>
+       <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+    
+    <bean id="uploadPath" class="java.lang.String">
+       <constructor-arg value="C:\SpringToolSuite\workspaceChat\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ChatProject\resources\upload"></constructor-arg>
+    </bean>
 		
 </beans>

@@ -8,7 +8,8 @@
 	 </settings>
 	 
 	 <typeAliases>
-<!-- 	 	<typeAlias type="kr.or.ddit.vo.BoardVO" alias="BoardVO"/> -->
+	 	<typeAlias type="com.chat.ryubbanggu.vo.Member" alias="member"/>
+	 	<typeAlias type="com.chat.ryubbanggu.vo.Chat" alias="chat"/>
 	 </typeAliases>
 	 
 </configuration>
