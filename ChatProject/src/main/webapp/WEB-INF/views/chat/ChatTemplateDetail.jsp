@@ -109,7 +109,7 @@ $(function() {
       
 });
 function connect() {
-  webSocket = new WebSocket("ws://localhost/echo");
+  webSocket = new WebSocket("ws://192.168.146.67/echo");
   
   webSocket.onopen = function(message) {
     // 접속 초기 데이터 작성
@@ -143,7 +143,8 @@ function connect() {
  	// 모든 message-bubble div 요소 선택
 	 $('.message-bubble').each(function() {
 	   // 현재 요소의 data-userId 값 가져오기
-	   var userId = $(this).data('userId');
+	   console.log($(this).data('userid'))
+	   var userId = $(this).data('userid');
 	
 	   // data-userId 값이 세션 값과 일치하는 경우 클래스 변경
 	   if (userId == sessionUserId) {

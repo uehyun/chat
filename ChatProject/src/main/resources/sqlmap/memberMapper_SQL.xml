@@ -17,4 +17,8 @@
 		from member
 		where user_id = #{userId}
 	</select>
+	
+	<select id="list" resultType="member">
+		select * from member
+	</select>
 </mapper>

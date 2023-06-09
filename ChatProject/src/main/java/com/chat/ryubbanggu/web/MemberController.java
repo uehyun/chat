@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	
 	@Resource(name="uploadPath")
-	private String resourcesPath;
+	private String resourcePath;
 	
 	@Inject
 	private IMemberService memberService;
@@ -56,9 +56,11 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
 			
-			List<Chat> chatList = chatService.list(userId);
-			model.addAttribute("chatList", chatList);
-			goPage = "chat/ChatTemplate";
+			List<Member> memList = memberService.list();
+			model.addAttribute("memberList", memList);
+//			List<Chat> chatList = chatService.list(userId);
+//			model.addAttribute("chatList", chatList);
+			goPage = "chat/list";
 		} else {
 			model.addAttribute("msg", "존재하지 않는 회원 입니다.");
 			goPage = "chat/success";
@@ -83,16 +85,17 @@ public class MemberController {
 		return "chat/success";
 	}
 	
+	
 	private String uploadFile(String originalName, byte[] fileData) throws IOException {
 		UUID uuid = UUID.randomUUID();
 		String createdFileName = uuid.toString() + "_" + originalName;
 		
-		File file = new File(resourcesPath);
+		File file = new File(resourcePath);
 		if(!file.exists()) {
 			file.mkdirs();
 		}
 		
-		File target = new File(resourcesPath, createdFileName);
+		File target = new File(resourcePath, createdFileName);
 		FileCopyUtils.copy(fileData, target);
 		return createdFileName;
 	}

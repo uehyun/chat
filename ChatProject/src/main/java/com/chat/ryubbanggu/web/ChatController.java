@@ -30,13 +30,9 @@ public class ChatController {
 	}
 	
 	@RequestMapping(value = "/chatMessage", method = RequestMethod.GET)
-	public String chatDetail(HttpServletRequest request, String chatId, Model model) {
+	public String chatDetail(String userId, Model model) {
 		log.info("chatDetail() 실행");
-		Chat chat = chatService.chatRoom(chatId);
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("userId");
 		List<Chat> chatList = chatService.list(userId);
-		model.addAttribute("chat", chat);
 		model.addAttribute("chatList", chatList);
 		
 		return "chat/ChatTemplateDetail";

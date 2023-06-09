@@ -31,7 +31,7 @@
     </bean>
     
     <bean id="uploadPath" class="java.lang.String">
-       <constructor-arg value="C:\SpringToolSuite\workspaceChat\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ChatProject\resources\upload"></constructor-arg>
+       <constructor-arg value="D:\A_TeachingMaterial\workspaceLocalGit\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DevProject\resources\upload"></constructor-arg>
     </bean>
 		
 </beans>

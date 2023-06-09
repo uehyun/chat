@@ -1,5 +1,7 @@
 package com.chat.ryubbanggu.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +23,11 @@ public class MemberServiceImpl implements IMemberService {
 	@Override
 	public Member selectUser(String userId) {
 		return mapper.selectUser(userId);
+	}
+
+	@Override
+	public List<Member> list() {
+		return mapper.list();
 	}
 
 }
