@@ -10,6 +10,7 @@ public interface ChatMapper {
 
 	public List<Chat> list(String userId);
 	public Chat chatRoom(String chatId);
-	public Chat create(@Param("userId") String userId,@Param("hostId") String hostId);
+	public String read(String userId);
+	public int create(@Param("userId") String userId,@Param("hostId") String hostId);
 
 }

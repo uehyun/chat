@@ -30,15 +30,18 @@
 		on aa.host_id = bb.user_id
 	</select>
 	
-	<insert id="create" useGeneratedKeys="true">
-	<selectKey keyProperty="chatId" resultType="Chat" order="BEFORE">
-		select 'chat-'||seq_chat.nextval from dual
-	</selectKey>
+	<insert id="create" parameterType="map">
 		insert into chat (
 			chat_id, user_id, host_id
 		) values (
-			#{chatId}, #{userId}, #{hostId}
+			'chat-'||seq_chat.nextval, #{userId}, #{hostId}
 		)
 	</insert>
+	
+	<select id="read" parameterType="String" resultType="String">
+		select chat_id
+		from chat
+		where user_id = #{userId} or host_id = #{userId}
+	</select>
 
 </mapper>

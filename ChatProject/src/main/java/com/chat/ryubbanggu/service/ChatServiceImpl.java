@@ -26,8 +26,13 @@ public class ChatServiceImpl implements IChatService {
 	}
 
 	@Override
-	public Chat create(String userId,String hostId) {
+	public int create(String userId, String hostId) {
 		return mapper.create(userId, hostId);
+	}
+
+	@Override
+	public String read(String userId) {
+		return mapper.read(userId);
 	}
 
 }

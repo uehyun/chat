@@ -10,6 +10,7 @@
 	 <typeAliases>
 	 	<typeAlias type="com.chat.ryubbanggu.vo.Member" alias="member"/>
 	 	<typeAlias type="com.chat.ryubbanggu.vo.Chat" alias="chat"/>
+	 	<typeAlias type="com.chat.ryubbanggu.vo.ChatMessage" alias="chatMessage"/>
 	 </typeAliases>
 	 
 </configuration>

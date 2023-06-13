@@ -58,8 +58,6 @@ public class MemberController {
 			
 			List<Member> memList = memberService.list();
 			model.addAttribute("memberList", memList);
-//			List<Chat> chatList = chatService.list(userId);
-//			model.addAttribute("chatList", chatList);
 			goPage = "chat/list";
 		} else {
 			model.addAttribute("msg", "존재하지 않는 회원 입니다.");

@@ -8,6 +8,7 @@ public interface IChatService {
 
 	public List<Chat> list(String userId);
 	public Chat chatRoom(String chatId);
-	public Chat create(String userId, String hostId);
+	public String read(String userId);
+	public int create(String userId, String hostId);
 
 }

@@ -30,11 +30,29 @@ public class ChatController {
 	}
 	
 	@RequestMapping(value = "/chatMessage", method = RequestMethod.GET)
-	public String chatDetail(String userId, Model model) {
+	public String chatList(
+			HttpServletRequest req,
+			String hostId, Model model) {
 		log.info("chatDetail() 실행");
+		List<Chat> chatList = chatService.list(hostId);
+		if(chatList.size() <=0) {
+			HttpSession session = req.getSession();
+			String userId = (String) session.getAttribute("userId");
+			chatService.create(userId, hostId);
+			chatList = chatService.list(userId);
+		}
+		
+		model.addAttribute("chatList", chatList);
+		return "chat/ChatTemplateDetail";
+	}
+	
+	@RequestMapping(value = "/chatDetail", method = RequestMethod.GET)
+	public String chatDetail(HttpServletRequest req, String chatId, Model model) {
+		HttpSession session = req.getSession();
+		String userId = (String) session.getAttribute("userId");
 		List<Chat> chatList = chatService.list(userId);
 		model.addAttribute("chatList", chatList);
-		
+		model.addAttribute("chatId", chatId);
 		return "chat/ChatTemplateDetail";
 	}
 	

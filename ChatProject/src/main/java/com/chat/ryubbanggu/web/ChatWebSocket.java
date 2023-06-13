@@ -16,7 +16,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.chat.ryubbanggu.service.IChatService;
 import com.chat.ryubbanggu.service.IMemberService;
 import com.chat.ryubbanggu.vo.Chat;
 import com.chat.ryubbanggu.vo.ChatMessage;
@@ -30,8 +29,6 @@ public class ChatWebSocket extends TextWebSocketHandler {
 	
     private List<WebSocketSession> users = new LinkedList<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    @Inject
-    private IChatService chatService;
     
     @Inject
     private IMemberService memberService;
@@ -39,7 +36,7 @@ public class ChatWebSocket extends TextWebSocketHandler {
     // 메세지 보내기
     private void sendMessage(String id, String message, String pictureUrl) {
         String sendMessage = "<div class='message-bubble' data-userId='"+ id +"'>"
-        					+ 	"<div class='message-avatar'>" + "<img src='../resources/upload/"+pictureUrl+ "'/></div>"
+        					+ 	"<div class='message-avatar'>" + "<img src='${pageContext.request.contextPath}/resources/upload/"+pictureUrl+ "'/></div>"
         					+ 	"<div class='message-text'><p>" + message + "</p></div>"
         					+ "</div>";
         for (WebSocketSession user : users) {
@@ -51,12 +48,11 @@ public class ChatWebSocket extends TextWebSocketHandler {
         }
     }
     
-    
     // 채팅내역 파일에 저장
     private void saveFile(String id,String message, String pictureUrl, String chatId) {
     	String filePath = "D:\\CHAT\\" + chatId + ".txt";
     	String msg = "<div class='message-bubble' data-userId='"+ id +"'>"
-					+ 	"<div class='message-avatar'>" + "<img src='../resources/upload/"+pictureUrl+ "'/></div>"
+					+ 	"<div class='message-avatar'>" + "<img src='${pageContext.request.contextPath}/resources/upload/"+pictureUrl+ "'/></div>"
 					+ 	"<div class='message-text'><p>" + message + "</p></div>"
 					+ "</div>";
     	log.info(chatId);
@@ -110,11 +106,7 @@ public class ChatWebSocket extends TextWebSocketHandler {
     	
     	Member member = memberService.selectUser(chatMessage.getUserId());
     	
-    	if(chatMessage.getChatId().equals("") || chatMessage.getChatId() == null) {
-    		chat = chatService.create(chatMessage.getUserId(), chatMessage.getHostId());
-    	}
-    	
-    	String chatRoom = "D:\\CHAT\\" + chat.getChatId() + ".txt";
+		String chatRoom = "D:\\CHAT\\" + chat.getChatId() + ".txt";
     	
     	if(chatMessage.getState() == 0) {
     		try {
@@ -137,5 +129,4 @@ public class ChatWebSocket extends TextWebSocketHandler {
     	users.remove(session);
     	log.info("----------------->socket 종료");
     }
-
 }
